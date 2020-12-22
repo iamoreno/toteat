@@ -54,7 +54,7 @@ export default {
     return {
       isEmpty: false,
       isBordered: false,
-      isStriped: false,
+      isStriped: true,
       isNarrowed: false,
       isHoverable: true,
       isFocusable: false,
