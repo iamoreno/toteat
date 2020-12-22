@@ -33,29 +33,48 @@ export default new Vuex.Store({
   },
   modules: {},
   getters: {
-    waiterInformation(state) {
+    waitersInformation(state) {
       let dict = {};
       state.data.forEach(item => {
         if (item.waiter in dict) {
-          dict[item.waiter][1] += 1;
-          dict[item.waiter][2] += item.total;
+          dict[item.waiter].orders += 1;
+          dict[item.waiter].income += item.total;
         } else {
-          dict[item.waiter] = [item.waiter, 1, item.total];
+          dict[item.waiter] = {
+            name: item.waiter,
+            orders: 1,
+            income: item.total
+          };
         }
       });
-      return dict;
+      let lista = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].averageIncome = Math.round(
+          dict[key].income / dict[key].orders
+        );
+        lista.push(dict[key]);
+      });
+      return lista;
     },
-    cashierInformation(state) {
+    cashiersInformation(state) {
       let dict = {};
       state.data.forEach(item => {
         if (item.cashier in dict) {
-          dict[item.cashier][1] += 1;
-          dict[item.cashier][2] += item.total;
+          dict[item.cashier].orders += 1;
+          dict[item.cashier].income += item.total;
         } else {
-          dict[item.cashier] = [item.cashier, 1, item.total];
+          dict[item.cashier] = {
+            name: item.cashier,
+            orders: 1,
+            income: item.total
+          };
         }
       });
-      return dict;
+      let lista = [];
+      Object.keys(dict).forEach(key => {
+        lista.push(dict[key]);
+      });
+      return lista;
     },
     paymentsInformation(state) {
       let dict = {};
@@ -87,20 +106,24 @@ export default new Vuex.Store({
       state.data.forEach(item => {
         item.products.forEach(product => {
           if (product.name in dict) {
-            dict[product.name][4] += product.price * product.quantity;
-            dict[product.name][3] += product.quantity;
+            dict[product.name].income += product.price * product.quantity;
+            dict[product.name].quantity += product.quantity;
           } else {
-            dict[product.name] = [
-              product.name,
-              product.category,
-              product.price,
-              product.quantity,
-              product.price * product.quantity
-            ];
+            dict[product.name] = {
+              name: product.name,
+              category: product.category,
+              price: product.price,
+              quantity: product.quantity,
+              income: product.price * product.quantity
+            };
           }
         });
       });
-      return dict;
+      let lista = [];
+      Object.keys(dict).forEach(key => {
+        lista.push(dict[key]);
+      });
+      return lista;
     },
     dailyIncomeInformation(state) {
       const days = {
