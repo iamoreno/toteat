@@ -1,11 +1,9 @@
 <template>
   <section>
-    <div>
-      <h1>Aquí se encuentra todo el detalle de los Meseros</h1>
-    </div>
+    <div><h1>Aquí se encuentra todo el detalle de ingresos por zona</h1></div>
     <div>
       <b-table
-        :data="isEmpty ? [] : waitersInformation"
+        :data="isEmpty ? [] : zoneInformation"
         :bordered="isBordered"
         :striped="isStriped"
         :narrowed="isNarrowed"
@@ -25,9 +23,10 @@
         </b-table-column>
 
         <b-table-column
-          field="orders"
-          label="Mesas atendidas"
+          field="mesas"
+          label="Mesas cobradas"
           sortable
+          numeric
           centered
           v-slot="props"
         >
@@ -37,23 +36,32 @@
         <b-table-column
           field="income"
           numeric
-          label="Ingreso total"
+          label="Ingreso Total"
           sortable
           centered
           v-slot="props"
         >
           $ {{ props.row.income }}
         </b-table-column>
-
         <b-table-column
           field="averageIncome"
-          label="Ingreso promedio por mesa"
+          numeric
+          label="Ingreso Promedio por Mesa"
           sortable
           centered
-          numeric
           v-slot="props"
         >
-          <span> $ {{ props.row.averageIncome }} </span>
+          $ {{ props.row.averageIncome }}
+        </b-table-column>
+        <b-table-column
+          field="averageTime"
+          numeric
+          label="Tiempo promedio estadía (minutos)"
+          sortable
+          centered
+          v-slot="props"
+        >
+          {{ props.row.averageTime }}
         </b-table-column>
       </b-table>
     </div>
@@ -75,8 +83,8 @@ export default {
     };
   },
   computed: {
-    waitersInformation() {
-      return this.$store.getters.waitersInformation;
+    zoneInformation() {
+      return this.$store.getters.zoneInformation;
     }
   }
 };

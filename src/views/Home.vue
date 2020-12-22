@@ -8,14 +8,6 @@
       </li>
     </ul>
     <ul>
-      <li v-for="dato in zoneInformation" :key="dato">
-        <p>
-          La zona {{ dato[0] }} ha recibido {{ dato[1] }} mesas y ha registrado
-          un total de $ {{ dato[2] }}
-        </p>
-      </li>
-    </ul>
-    <ul>
       <li v-for="ingreso in dailyIncomeInformation" :key="ingreso">
         <p>El día {{ ingreso[0] }} se ha recaudado {{ ingreso[1] }}</p>
       </li>
@@ -45,9 +37,6 @@ export default {
   computed: {
     paymentsInformation() {
       return this.$store.getters.paymentsInformation;
-    },
-    zoneInformation() {
-      return this.$store.getters.zoneInformation;
     },
     dailyIncomeInformation() {
       return this.$store.getters.dailyIncomeInformation;

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div><h1>Aquí se encuentra todo el detalle de los productos</h1></div>
+    <div><h1>Aquí se encuentra todo el detalle de los cajeros</h1></div>
     <div>
       <b-table
         :data="isEmpty ? [] : cashiersInformation"
@@ -41,7 +41,7 @@
           centered
           v-slot="props"
         >
-          {{ props.row.income }}
+          $ {{ props.row.income }}
         </b-table-column>
       </b-table>
     </div>

@@ -91,15 +91,32 @@ export default new Vuex.Store({
     },
     zoneInformation(state) {
       let dict = {};
+      const minuts = 1000 * 60;
       state.data.forEach(item => {
         if (item.zone in dict) {
-          dict[item.zone][1] += 1;
-          dict[item.zone][2] += item.total;
+          dict[item.zone].orders += 1;
+          dict[item.zone].income += item.total;
+          dict[item.zone].time +=
+            (item.date_closed.getTime() - item.date_opened.getTime()) / minuts;
         } else {
-          dict[item.zone] = [item.zone, 1, item.total];
+          dict[item.zone] = {
+            name: item.zone,
+            orders: 1,
+            income: item.total,
+            time:
+              (item.date_closed.getTime() - item.date_opened.getTime()) / minuts
+          };
         }
       });
-      return dict;
+      let lista = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].averageIncome = Math.round(
+          dict[key].income / dict[key].orders
+        );
+        dict[key].averageTime = Math.round(dict[key].time / dict[key].orders);
+        lista.push(dict[key]);
+      });
+      return lista;
     },
     productsInformation(state) {
       let dict = {};

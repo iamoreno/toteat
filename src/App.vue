@@ -4,7 +4,8 @@
       <router-link to="/">Estadísticas Generales</router-link> |
       <router-link to="/products">Productos</router-link> |
       <router-link to="/waiters">Meseros</router-link> |
-      <router-link to="/cashiers">Cajeros</router-link>
+      <router-link to="/cashiers">Cajeros</router-link> |
+      <router-link to="/zones">Zonas</router-link>
     </div>
     <router-view />
   </div>
