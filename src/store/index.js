@@ -226,6 +226,60 @@ export default new Vuex.Store({
       let list = [monthsList, dataList, orderList, averageList];
       return list;
     },
+    hourlyIncomeInformation(state) {
+      const hours = {
+        0: "00:00-00:59",
+        1: "01:00-01:59",
+        2: "02:00-02:59",
+        3: "03:00-03:59",
+        4: "04:00-04:59",
+        5: "05:00-05:59",
+        6: "06:00-06:59",
+        7: "07:00-07:59",
+        8: "08:00-08:59",
+        9: "09:00-09:59",
+        10: "10:00-10:59",
+        11: "11:00-11:59",
+        12: "12:00-12:59",
+        13: "13:00-13:59",
+        14: "14:00-14:59",
+        15: "15:00-15:59",
+        16: "16:00-16:59",
+        17: "17:00-17:59",
+        18: "18:00-18:59",
+        19: "19:00-19:59",
+        20: "20:00-20:59",
+        21: "21:00-21:59",
+        22: "22:00-22:59",
+        23: "23:00-23:59"
+      };
+      let dict = {};
+      state.data.forEach(item => {
+        if (item.date_closed.getHours() in dict) {
+          dict[item.date_closed.getHours()][1] += item.total;
+          dict[item.date_closed.getHours()][2] += 1;
+        } else {
+          dict[item.date_closed.getHours()] = [
+            hours[item.date_closed.getHours()],
+            item.total,
+            1
+          ];
+        }
+      });
+      let hoursList = [];
+      let dataList = [];
+      let orderList = [];
+      let averageList = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].push(Math.round(dict[key][1] / dict[key][2]));
+        hoursList.push(dict[key][0]);
+        dataList.push(dict[key][1]);
+        orderList.push(dict[key][2]);
+        averageList.push(dict[key][3]);
+      });
+      let list = [hoursList, dataList, orderList, averageList];
+      return list;
+    },
     averageStay(state) {
       let dict = {};
       const minuts = 1000 * 60;

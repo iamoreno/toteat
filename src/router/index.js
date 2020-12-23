@@ -34,6 +34,11 @@ const routes = [
     path: "/graphs",
     name: "Graphs",
     component: () => import("../views/GeneralGraphs.vue")
+  },
+  {
+    path: "/hourly",
+    name: "Hourly",
+    component: () => import("../views/ByHour.vue")
   }
 ];
 

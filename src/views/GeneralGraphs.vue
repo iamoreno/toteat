@@ -29,7 +29,7 @@
       <h2>Ingresos Totales Diarios</h2>
       <BarChart
         v-if="isLoaded"
-        :chartData="daylyChartConfig"
+        :chartData="dailyChartConfig"
         :options="options"
       ></BarChart>
     </div>
@@ -37,7 +37,7 @@
       <h2>Mesas atendidas por día</h2>
       <BarChart
         v-if="isLoaded"
-        :chartData="daylyOrderConfig"
+        :chartData="dailyOrderConfig"
         :options="options"
       ></BarChart>
     </div>
@@ -45,7 +45,7 @@
       <h2>Ingreso promedio por mesa en cada día</h2>
       <BarChart
         v-if="isLoaded"
-        :chartData="daylyAverageConfig"
+        :chartData="dailyAverageConfig"
         :options="options"
       ></BarChart>
     </div>
@@ -85,9 +85,9 @@ export default {
       monthlyChartConfig: {},
       monthlyOrderConfig: {},
       monthlyAverageConfig: {},
-      daylyChartConfig: {},
-      daylyOrderConfig: {},
-      daylyAverageConfig: {},
+      dailyChartConfig: {},
+      dailyOrderConfig: {},
+      dailyAverageConfig: {},
       doughnutPaymentConfig: {},
       doughnutZoneConfig: {},
       options: {},
@@ -105,7 +105,7 @@ export default {
   },
   async mounted() {
     let monthlyInfo = this.$store.getters.monthlyIncomeInformation;
-    let daylyInfo = this.$store.getters.dailyIncomeInformation;
+    let dailyInfo = this.$store.getters.dailyIncomeInformation;
     let paymentInfo = this.$store.getters.paymentsInformation;
     let zoneInfo = this.$store.getters.zoneInformation;
     let zones = [];
@@ -144,33 +144,33 @@ export default {
         }
       ]
     };
-    this.daylyChartConfig = {
-      labels: daylyInfo[0],
+    this.dailyChartConfig = {
+      labels: dailyInfo[0],
       datasets: [
         {
           label: "Ingresos $",
           backgroundColor: "#42b983",
-          data: daylyInfo[1]
+          data: dailyInfo[1]
         }
       ]
     };
-    this.daylyOrderConfig = {
-      labels: daylyInfo[0],
+    this.dailyOrderConfig = {
+      labels: dailyInfo[0],
       datasets: [
         {
           label: "Mesas",
           backgroundColor: "#42b983",
-          data: daylyInfo[2]
+          data: dailyInfo[2]
         }
       ]
     };
-    this.daylyAverageConfig = {
-      labels: daylyInfo[0],
+    this.dailyAverageConfig = {
+      labels: dailyInfo[0],
       datasets: [
         {
           label: "Ingreso",
           backgroundColor: "#42b983",
-          data: daylyInfo[3]
+          data: dailyInfo[3]
         }
       ]
     };

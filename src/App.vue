@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/graphs">Gráficos Generales</router-link> |
+      <router-link to="/hourly">Información Horaria</router-link> |
       <router-link to="/products">Productos</router-link> |
       <router-link to="/waiters">Meseros</router-link> |
       <router-link to="/cashiers">Cajeros</router-link> |
