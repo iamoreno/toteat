@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
     <ul>
       <li v-for="payment in paymentsInformation" :key="payment">
         <p>El metodo {{ payment[0] }} ha generado {{ payment[1] }}</p>
@@ -21,18 +19,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
-  },
+  components: {},
   data() {
-    return {
-      sells: null
-    };
+    return {};
   },
   computed: {
     paymentsInformation() {

@@ -19,7 +19,6 @@ export default new Vuex.Store({
             item.date_closed = closed;
             item.date_opened = open;
           });
-          console.log(state.data);
         })
         .catch(error => {
           console.log(error);
@@ -87,7 +86,13 @@ export default new Vuex.Store({
           }
         });
       });
-      return dict;
+      let labels = [];
+      let data = [];
+      Object.keys(dict).forEach(key => {
+        labels.push(dict[key][0]);
+        data.push(dict[key][1]);
+      });
+      return [labels, data];
     },
     zoneInformation(state) {
       let dict = {};
@@ -148,7 +153,7 @@ export default new Vuex.Store({
         1: "Lunes",
         2: "Martes",
         3: "Miércoles",
-        4: "Juevas",
+        4: "Jueves",
         5: "Viernes",
         6: "Sábado"
       };
@@ -156,14 +161,28 @@ export default new Vuex.Store({
       state.data.forEach(item => {
         if (item.date_closed.getDay() in dict) {
           dict[item.date_closed.getDay()][1] += item.total;
+          dict[item.date_closed.getDay()][2] += 1;
         } else {
           dict[item.date_closed.getDay()] = [
             days[item.date_closed.getDay()],
-            item.total
+            item.total,
+            1
           ];
         }
       });
-      return dict;
+      let daysList = [];
+      let dataList = [];
+      let orderList = [];
+      let averageList = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].push(Math.round(dict[key][1] / dict[key][2]));
+        daysList.push(dict[key][0]);
+        dataList.push(dict[key][1]);
+        orderList.push(dict[key][2]);
+        averageList.push(dict[key][3]);
+      });
+      let list = [daysList, dataList, orderList, averageList];
+      return list;
     },
     monthlyIncomeInformation(state) {
       const Months = {
@@ -184,15 +203,28 @@ export default new Vuex.Store({
       state.data.forEach(item => {
         if (item.date_closed.getMonth() in dict) {
           dict[item.date_closed.getMonth()][1] += item.total;
+          dict[item.date_closed.getMonth()][2] += 1;
         } else {
           dict[item.date_closed.getMonth()] = [
             Months[item.date_closed.getMonth()],
-            item.total
+            item.total,
+            1
           ];
         }
       });
-      console.log(dict);
-      return dict;
+      let monthsList = [];
+      let dataList = [];
+      let orderList = [];
+      let averageList = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].push(Math.round(dict[key][1] / dict[key][2]));
+        monthsList.push(dict[key][0]);
+        dataList.push(dict[key][1]);
+        orderList.push(dict[key][2]);
+        averageList.push(dict[key][3]);
+      });
+      let list = [monthsList, dataList, orderList, averageList];
+      return list;
     },
     averageStay(state) {
       let dict = {};

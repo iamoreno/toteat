@@ -29,6 +29,11 @@ const routes = [
     path: "/zones",
     name: "Zones",
     component: () => import("../views/Zones.vue")
+  },
+  {
+    path: "/graphs",
+    name: "Graphs",
+    component: () => import("../views/GeneralGraphs.vue")
   }
 ];
 
