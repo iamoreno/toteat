@@ -1,9 +1,14 @@
 <template>
   <section>
-    <div><h1>Aquí se encuentra todo el detalle de los cajeros</h1></div>
+    <div>
+      <h1>
+        Aquí se encuentra todo el detalle de ingresos por cantidad de comensales
+        en la mesa
+      </h1>
+    </div>
     <div>
       <b-table
-        :data="isEmpty ? [] : cashiersInformation"
+        :data="isEmpty ? [] : tableBySizeInfo"
         :bordered="isBordered"
         :striped="isStriped"
         :narrowed="isNarrowed"
@@ -13,13 +18,14 @@
         :mobile-cards="hasMobileCards"
       >
         <b-table-column
-          field="name"
-          label="Nombre"
+          field="people"
+          label="Cantidad de Comensales"
           centered
+          numeric
           sortable
           v-slot="props"
         >
-          {{ props.row.name }}
+          {{ props.row.diners }}
         </b-table-column>
 
         <b-table-column
@@ -43,6 +49,36 @@
         >
           $ {{ props.row.income }}
         </b-table-column>
+        <b-table-column
+          field="averageIncome"
+          numeric
+          label="Ingreso Promedio por Mesa"
+          sortable
+          centered
+          v-slot="props"
+        >
+          $ {{ props.row.averageIncome }}
+        </b-table-column>
+        <b-table-column
+          field="averageIncomeByPerson"
+          numeric
+          label="Ingreso Promedio por Persona en la mesa"
+          sortable
+          centered
+          v-slot="props"
+        >
+          $ {{ props.row.averageIncomeByPerson }}
+        </b-table-column>
+        <b-table-column
+          field="averageTime"
+          numeric
+          label="Tiempo promedio estadía (minutos)"
+          sortable
+          centered
+          v-slot="props"
+        >
+          {{ props.row.averageTime }}
+        </b-table-column>
       </b-table>
     </div>
   </section>
@@ -63,8 +99,8 @@ export default {
     };
   },
   computed: {
-    cashiersInformation() {
-      return this.$store.getters.cashiersInformation;
+    tableBySizeInfo() {
+      return this.$store.getters.tableBySize;
     }
   }
 };

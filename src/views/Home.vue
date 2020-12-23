@@ -1,20 +1,14 @@
 <template>
   <div class="home">
-    <ul>
-      <li v-for="payment in paymentsInformation" :key="payment">
-        <p>El metodo {{ payment[0] }} ha generado {{ payment[1] }}</p>
-      </li>
-    </ul>
-    <ul>
-      <li v-for="ingreso in dailyIncomeInformation" :key="ingreso">
-        <p>El día {{ ingreso[0] }} se ha recaudado {{ ingreso[1] }}</p>
-      </li>
-    </ul>
-    <ul>
-      <li v-for="ingreso in monthlyIncomeInformation" :key="ingreso">
-        <p>El día {{ ingreso[0] }} se ha recaudado {{ ingreso[1] }}</p>
-      </li>
-    </ul>
+    <h1>La Pikada de la Esquina</h1>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Restaurant_N%C3%A4sinneula.jpg"
+      alt=""
+    />
+    <h2>
+      En el apartado superior encontrará información detallada mediante gráficos
+      y tablas. Todas las tablas son ordenables por cada columna.
+    </h2>
   </div>
 </template>
 
@@ -25,19 +19,27 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    paymentsInformation() {
-      return this.$store.getters.paymentsInformation;
-    },
-    dailyIncomeInformation() {
-      return this.$store.getters.dailyIncomeInformation;
-    },
-    monthlyIncomeInformation() {
-      return this.$store.getters.monthlyIncomeInformation;
-    },
-    averageStay() {
-      return this.$store.getters.averageStay;
-    }
-  }
+  computed: {}
 };
 </script>
+<style scoped>
+.home h1 {
+  font-size: 50px;
+  font-weight: bolder;
+  padding: 0.5%;
+}
+img {
+  width: 45%;
+  height: 45%;
+  border-radius: 16px;
+  border: 2px solid #ddd;
+  padding: 4px;
+}
+h2 {
+  font-size: 35px;
+  font-weight: bold;
+  margin-left: 18%;
+  margin-right: 18%;
+  margin-top: 2%;
+}
+</style>

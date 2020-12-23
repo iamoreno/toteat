@@ -39,6 +39,11 @@ const routes = [
     path: "/hourly",
     name: "Hourly",
     component: () => import("../views/ByHour.vue")
+  },
+  {
+    path: "/tables",
+    name: "Tables",
+    component: () => import("../views/Tables.vue")
   }
 ];
 

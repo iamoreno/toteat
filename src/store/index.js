@@ -280,19 +280,37 @@ export default new Vuex.Store({
       let list = [hoursList, dataList, orderList, averageList];
       return list;
     },
-    averageStay(state) {
+    tableBySize(state) {
       let dict = {};
       const minuts = 1000 * 60;
       state.data.forEach(item => {
-        dict[item.id] = [
-          item.id,
-          item.zone,
-          item.diners,
-          item.total,
-          (item.date_closed.getTime() - item.date_opened.getTime()) / minuts
-        ];
+        if (item.diners in dict) {
+          dict[item.diners].orders += 1;
+          dict[item.diners].income += item.total;
+          dict[item.diners].time +=
+            (item.date_closed.getTime() - item.date_opened.getTime()) / minuts;
+        } else {
+          dict[item.diners] = {
+            diners: item.diners,
+            orders: 1,
+            income: item.total,
+            time:
+              (item.date_closed.getTime() - item.date_opened.getTime()) / minuts
+          };
+        }
       });
-      return dict;
+      let lista = [];
+      Object.keys(dict).forEach(key => {
+        dict[key].averageIncome = Math.round(
+          dict[key].income / dict[key].orders
+        );
+        dict[key].averageIncomeByPerson = Math.round(
+          dict[key].averageIncome / dict[key].diners
+        );
+        dict[key].averageTime = Math.round(dict[key].time / dict[key].orders);
+        lista.push(dict[key]);
+      });
+      return lista;
     }
   }
 });

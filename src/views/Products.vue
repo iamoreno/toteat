@@ -104,6 +104,7 @@ section div {
 }
 section div h1 {
   font-weight: bolder;
-  font-size: 25px;
+  font-size: 30px;
+  padding: 2.5%;
 }
 </style>
